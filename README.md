@@ -4,7 +4,7 @@ This project is a REST API developed in **.NET Core 3.1** with **xUnit** unit te
 
 ## Usage
 ### Running
-The project is designed to run locally just running the ***Application*** project.
+The project is designed to run locally just by running the ***Application*** project.
 
 *To achieve this design, the database is In Memory and some capabilities of relational databases might not work as expected. ex: Unique Indexes. However, those configurations are still present.*
 
