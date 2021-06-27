@@ -1,4 +1,4 @@
-# Last Hotel API
+# Last Hotel API - Matheus Cassol
 
 This project is a REST API developed in **.NET Core 3.1** with **xUnit** unit tests.
 
