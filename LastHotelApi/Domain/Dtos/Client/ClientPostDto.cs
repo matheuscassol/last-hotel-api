@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain.Dtos
 {
-    public class ClientCreateDto
+    public class ClientPostDto
     {
         [Required(ErrorMessage = "Name is required")]
         [StringLength(100, ErrorMessage = "Name must have a maximum of 100 characters")]

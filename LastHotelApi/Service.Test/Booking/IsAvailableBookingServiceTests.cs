@@ -19,11 +19,10 @@ namespace Service.Test.Booking
         public async Task Should_Check_If_Booking_Is_Available_When_Query_Is_Valid()
         {
             _mockRepository.Setup(m => m.IsAvailable(BookingEntity)).ReturnsAsync(true);
-            _mockMapper.Setup(m => m.Map<BookingModel>(BookingInputDto)).Returns(BookingModel);
             _mockMapper.Setup(m => m.Map<BookingEntity>(BookingModel)).Returns(BookingEntity);
             var service = new BookingService(_mockRepository.Object, _mockMapper.Object, _mockClientRepository.Object);
             
-            var result = await service.IsAvailable(BookingInputDto);
+            var result = await service.IsAvailable(BookingModel);
 
             Assert.True(result.IsAvailable);
             Assert.Empty(result.Notifications);
@@ -37,13 +36,12 @@ namespace Service.Test.Booking
             BookingModel.StartDate = DateTime.UtcNow.AddDays(daysToStartDate);
             BookingModel.EndDate = DateTime.UtcNow.AddDays(daysToEndDate);
 
-            _mockMapper.Setup(m => m.Map<BookingModel>(BookingInputDto)).Returns(BookingModel);
             var service = new BookingService(_mockRepository.Object, _mockMapper.Object, _mockClientRepository.Object);
             
-            var result = await service.IsAvailable(BookingInputDto);
+            var result = await service.IsAvailable(BookingModel);
 
             _mockRepository.Verify(s => s.IsAvailable(BookingEntity), Times.Never);
-            Assert.Collection(BookingModel.Notifications, item => {
+            Assert.Collection(result.Notifications, item => {
                 Assert.Equal(notificationKey, item.Key); ;
             });
         }

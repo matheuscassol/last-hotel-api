@@ -17,15 +17,10 @@ namespace Service.Test.Client
         protected Mock<IMapper> _mockMapper = new Mock<IMapper>();
 
         public Guid ClientId { get; set; }
-        public List<ClientSelectResultDto> ClientSelectResultDtoList { get; set; } = new List<ClientSelectResultDto>();
-        public ClientSelectResultDto ClientSelectResultDto { get; set; }
-        public ClientCreateDto ClientCreateDto { get; set; }
-        public ClientCreateResultDto ClientCreateResultDto { get; set; }
-        public ClientUpdateDto ClientUpdateDto { get; set; }
-        public ClientUpdateResultDto ClientUpdateResultDto { get; set; }
-        public List<ClientEntity> ClientEntities { get; set; } = new List<ClientEntity>();
-        public ClientEntity ClientEntity { get; set; }
         public ClientModel ClientModel { get; set; }
+        public List<ClientModel> ClientModels { get; set; } = new List<ClientModel>();
+        public ClientEntity ClientEntity { get; set; }
+        public List<ClientEntity> ClientEntities { get; set; } = new List<ClientEntity>();
 
         public ClientServiceTests()
         {
@@ -33,13 +28,13 @@ namespace Service.Test.Client
 
             for (int i = 0; i< 10; i++)
             {
-                var dto = new ClientSelectResultDto
+                var model = new ClientModel
                 {
                     Id = Guid.NewGuid(),
                     Name = Faker.Name.FullName(),
                     Email = Faker.Internet.Email()
                 };
-                ClientSelectResultDtoList.Add(dto);
+                ClientModels.Add(model);
 
                 var entity = new ClientEntity
                 {
@@ -51,41 +46,6 @@ namespace Service.Test.Client
                 };
                 ClientEntities.Add(entity);
             }
-
-            ClientSelectResultDto = new ClientSelectResultDto
-            {
-                Id = Guid.NewGuid(),
-                Name = Faker.Name.FullName(),
-                Email = Faker.Internet.Email()
-            };
-
-            ClientCreateDto = new ClientCreateDto
-            {
-                Name = Faker.Name.FullName(),
-                Email = Faker.Internet.Email()
-            };
-
-            ClientCreateResultDto = new ClientCreateResultDto
-            {
-                Id = Guid.NewGuid(),
-                Name = Faker.Name.FullName(),
-                Email = Faker.Internet.Email(),
-                CreatedAt = DateTime.UtcNow
-            };
-
-            ClientUpdateDto = new ClientUpdateDto
-            {
-                Id = Guid.NewGuid(),
-                Name = Faker.Name.FullName(),
-                Email = Faker.Internet.Email()
-            };
-
-            ClientUpdateResultDto = new ClientUpdateResultDto
-            {
-                Id = Guid.NewGuid(),
-                Name = Faker.Name.FullName(),
-                Email = Faker.Internet.Email()
-            };
 
             ClientEntity = new ClientEntity
             {

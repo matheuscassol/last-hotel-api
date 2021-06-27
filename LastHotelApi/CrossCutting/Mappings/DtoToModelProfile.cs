@@ -2,9 +2,6 @@
 using Domain.Dtos;
 using Domain.Dtos.Booking;
 using Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CrossCutting.Mappings
 {
@@ -12,14 +9,19 @@ namespace CrossCutting.Mappings
     {
         public DtoToModelProfile()
         {
-            CreateMap<ClientCreateDto, ClientModel>();
-            CreateMap<ClientUpdateDto, ClientModel>();
+            CreateMap<ClientPostDto, ClientModel>();
+            CreateMap<ClientPutDto, ClientModel>();
+            CreateMap<ClientModel, ClientPostResultDto>();
+            CreateMap<ClientModel, ClientPutResultDto>();
+            CreateMap<ClientModel, ClientGetResultDto>();
 
-            CreateMap<BookingCreateDto, BookingModel>();
-            CreateMap<BookingUpdateDto, BookingModel>();
-            CreateMap<BookingInputDto, BookingModel>();
-            CreateMap<BookingModel, BookingCreateResultDto>();
-            CreateMap<BookingModel, BookingUpdateResultDto>();
+            CreateMap<BookingPostDto, BookingModel>();
+            CreateMap<BookingPutDto, BookingModel>();
+            CreateMap<BookingIsAvailableDto, BookingModel>();
+            
+            CreateMap<BookingModel, BookingGetResultDto>();
+            CreateMap<BookingModel, BookingPostResultDto>();
+            CreateMap<BookingModel, BookingPutResultDto>();
         }
     }
 }

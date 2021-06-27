@@ -23,7 +23,7 @@ namespace Application.Middlewares
             {
                 await _next(context);
             }
-            catch
+            catch (Exception ex)
             {
                 var response = context.Response;
                 response.ContentType = "text";

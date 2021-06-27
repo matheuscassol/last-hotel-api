@@ -1,6 +1,9 @@
-﻿using Domain.Dtos;
+﻿using AutoMapper;
+using Domain.Dtos;
 using Domain.Interfaces.Services.Client;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -12,14 +15,17 @@ namespace Application.Test.Client
     {
         protected Mock<IClientService> _mockService = new Mock<IClientService>();
         protected Mock<IUrlHelper> _mockUrl = new Mock<IUrlHelper>();
+        protected Mock<IMapper> _mockMapper = new Mock<IMapper>();
         
         public Guid ClientId { get; set; }
-        public List<ClientSelectResultDto> ClientSelectResultDtoList { get; set; } = new List<ClientSelectResultDto>();
-        public ClientSelectResultDto ClientSelectResultDto { get; set; }
-        public ClientCreateDto ClientCreateDto { get; set; }
-        public ClientCreateResultDto ClientCreateResultDto { get; set; }
-        public ClientUpdateDto ClientUpdateDto { get; set; }
-        public ClientUpdateResultDto ClientUpdateResultDto { get; set; }
+        public ClientModel ClientModel { get; set; }
+        public List<ClientModel> ClientModels { get; set; } = new List<ClientModel>();
+        public ClientGetResultDto ClientGetResultDto { get; set; }
+        public List<ClientGetResultDto> ClientGetResultDtos { get; set; } = new List<ClientGetResultDto>();
+        public ClientPostDto ClientPostDto { get; set; }
+        public ClientPostResultDto ClientPostResultDto { get; set; }
+        public ClientPutDto ClientPutDto { get; set; }
+        public ClientPutResultDto ClientPutResultDto { get; set; }
 
         public ClientControllerTests()
         {
@@ -27,29 +33,37 @@ namespace Application.Test.Client
 
             for (int i = 0; i < 10; i++)
             {
-                var dto = new ClientSelectResultDto
+                var model = new ClientModel
                 {
                     Id = Guid.NewGuid(),
                     Name = Faker.Name.FullName(),
                     Email = Faker.Internet.Email()
                 };
-                ClientSelectResultDtoList.Add(dto);
+                ClientModels.Add(model);
+
+                var dto = new ClientGetResultDto
+                {
+                    Id = Guid.NewGuid(),
+                    Name = Faker.Name.FullName(),
+                    Email = Faker.Internet.Email()
+                };
+                ClientGetResultDtos.Add(dto);
             }
 
-            ClientSelectResultDto = new ClientSelectResultDto
+            ClientGetResultDto = new ClientGetResultDto
             {
                 Id = Guid.NewGuid(),
                 Name = Faker.Name.FullName(),
                 Email = Faker.Internet.Email()
             };
 
-            ClientCreateDto = new ClientCreateDto
+            ClientPostDto = new ClientPostDto
             {
                 Name = Faker.Name.FullName(),
                 Email = Faker.Internet.Email()
             };
 
-            ClientCreateResultDto = new ClientCreateResultDto
+            ClientPostResultDto = new ClientPostResultDto
             {
                 Id = Guid.NewGuid(),
                 Name = Faker.Name.FullName(),
@@ -57,14 +71,21 @@ namespace Application.Test.Client
                 CreatedAt = DateTime.UtcNow
             };
 
-            ClientUpdateDto = new ClientUpdateDto
+            ClientPutDto = new ClientPutDto
             {
                 Id = Guid.NewGuid(),
                 Name = Faker.Name.FullName(),
                 Email = Faker.Internet.Email()
             };
 
-            ClientUpdateResultDto = new ClientUpdateResultDto
+            ClientPutResultDto = new ClientPutResultDto
+            {
+                Id = Guid.NewGuid(),
+                Name = Faker.Name.FullName(),
+                Email = Faker.Internet.Email()
+            };
+
+            ClientModel = new ClientModel
             {
                 Id = Guid.NewGuid(),
                 Name = Faker.Name.FullName(),

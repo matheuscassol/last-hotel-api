@@ -18,16 +18,10 @@ namespace Service.Test.Booking
         protected Mock<IMapper> _mockMapper = new Mock<IMapper>();
 
         public Guid BookingId { get; set; }
-        public List<BookingSelectResultDto> BookingSelectResultDtoList { get; set; } = new List<BookingSelectResultDto>();
-        public BookingSelectResultDto BookingSelectResultDto { get; set; }
-        public BookingCreateDto BookingCreateDto { get; set; }
-        public BookingCreateResultDto BookingCreateResultDto { get; set; }
-        public BookingUpdateDto BookingUpdateDto { get; set; }
-        public BookingUpdateResultDto BookingUpdateResultDto { get; set; }
-        public List<BookingEntity> BookingEntities { get; set; } = new List<BookingEntity>();
-        public BookingEntity BookingEntity { get; set; }
         public BookingModel BookingModel { get; set; }
-        public BookingInputDto BookingInputDto { get; set; }
+        public List<BookingModel> BookingModels { get; set; } = new List<BookingModel>();
+        public BookingEntity BookingEntity { get; set; }
+        public List<BookingEntity> BookingEntities { get; set; } = new List<BookingEntity>();
 
         public BookingServiceTests()
         {
@@ -35,14 +29,14 @@ namespace Service.Test.Booking
 
             for (int i = 0; i < 10; i++)
             {
-                var dto = new BookingSelectResultDto
+                var model = new BookingModel
                 {
                     Id = Guid.NewGuid(),
                     ClientId = Guid.NewGuid(),
                     StartDate = DateTime.UtcNow,
                     EndDate = DateTime.UtcNow
                 };
-                BookingSelectResultDtoList.Add(dto);
+                BookingModels.Add(model);
 
                 var entity = new BookingEntity
                 {
@@ -55,47 +49,6 @@ namespace Service.Test.Booking
                 };
                 BookingEntities.Add(entity);
             }
-
-            BookingSelectResultDto = new BookingSelectResultDto
-            {
-                Id = Guid.NewGuid(),
-                ClientId = Guid.NewGuid(),
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow
-            };
-
-            BookingCreateDto = new BookingCreateDto
-            {
-                ClientId = Guid.NewGuid(),
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow
-            };
-
-            BookingCreateResultDto = new BookingCreateResultDto
-            {
-                Id = Guid.NewGuid(),
-                ClientId = Guid.NewGuid(),
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow,
-                CreatedAt = DateTime.UtcNow
-            };
-
-            BookingUpdateDto = new BookingUpdateDto
-            {
-                Id = Guid.NewGuid(),
-                ClientId = Guid.NewGuid(),
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow
-            };
-
-            BookingUpdateResultDto = new BookingUpdateResultDto
-            {
-                Id = Guid.NewGuid(),
-                ClientId = Guid.NewGuid(),
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
 
             BookingEntity = new BookingEntity
             {
@@ -115,21 +68,6 @@ namespace Service.Test.Booking
                 EndDate = DateTime.UtcNow.AddDays(4).Date,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
-            };
-
-            BookingInputDto = new BookingInputDto
-            {
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow
-            };
-
-            BookingCreateResultDto = new BookingCreateResultDto
-            {
-                Id = Guid.NewGuid(),
-                ClientId = Guid.NewGuid(),
-                StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow,
-                CreatedAt = DateTime.UtcNow
             };
         }
     }

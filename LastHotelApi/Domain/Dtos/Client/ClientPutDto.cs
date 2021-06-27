@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain.Dtos
 {
-    public class ClientUpdateDto
+    public class ClientPutDto
     {
         [Required(ErrorMessage = "Id is required")]
         public Guid? Id { get; set; }

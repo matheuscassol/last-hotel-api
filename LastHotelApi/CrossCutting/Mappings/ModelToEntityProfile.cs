@@ -11,8 +11,11 @@ namespace CrossCutting.Mappings
     {
         public ModelToEntityProfile()
         {
-            CreateMap<ClientModel, ClientEntity>();
-            CreateMap<BookingModel, BookingEntity>();
+            CreateMap<ClientModel, ClientEntity>()
+                .ReverseMap();
+
+            CreateMap<BookingModel, BookingEntity>()
+                .ReverseMap();
         }
     }
 }

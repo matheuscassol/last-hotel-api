@@ -20,14 +20,13 @@ namespace Service.Test.Client
         {
             _mockRepository.Setup(m => m.UpdateAsync(ClientEntity)).ReturnsAsync(ClientEntity);
             
-            _mockMapper.Setup(m => m.Map<ClientModel>(ClientUpdateDto)).Returns(ClientModel);
             _mockMapper.Setup(m => m.Map<ClientEntity>(ClientModel)).Returns(ClientEntity);
-            _mockMapper.Setup(m => m.Map<ClientUpdateResultDto>(ClientEntity)).Returns(ClientUpdateResultDto);
+            _mockMapper.Setup(m => m.Map<ClientModel>(ClientEntity)).Returns(ClientModel);
             var service = new ClientService(_mockRepository.Object, _mockMapper.Object);
 
-            var result = await service.Edit(ClientUpdateDto);
+            var result = await service.Edit(ClientModel);
 
-            Assert.Equal(result, ClientUpdateResultDto);
+            Assert.Equal(result, ClientModel);
         }
     }
 }

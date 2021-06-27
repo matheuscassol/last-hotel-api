@@ -4,11 +4,9 @@ using System.Text;
 
 namespace Domain.Dtos
 {
-    public class ClientCreateResultDto
+    public abstract class BasePostResultDto
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

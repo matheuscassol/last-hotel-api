@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Dtos\NewFolder1\**" />
-    <EmbeddedResource Remove="Dtos\NewFolder1\**" />
-    <None Remove="Dtos\NewFolder1\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Flunt" Version="2.0.3" />
   </ItemGroup>
 

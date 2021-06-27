@@ -17,7 +17,7 @@ namespace Application.Test.Client
         public async Task Should_Return_Ok_When_Service_Is_Able_To_Delete()
         {
             _mockService.Setup(m => m.Delete(ClientId)).ReturnsAsync(true);
-            var controller = new ClientsController(_mockService.Object);
+            var controller = new ClientsController(_mockService.Object, _mockMapper.Object);
 
             var result = await controller.Delete(ClientId);
 
@@ -30,7 +30,7 @@ namespace Application.Test.Client
         {
             _mockService.Setup(m => m.Delete(ClientId)).ReturnsAsync(true);
 
-            var controller = new ClientsController(_mockService.Object);
+            var controller = new ClientsController(_mockService.Object, _mockMapper.Object);
             controller.ModelState.AddModelError("Id", "Id is required");
 
             var result = await controller.Delete(ClientId);

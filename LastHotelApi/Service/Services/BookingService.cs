@@ -1,45 +1,24 @@
 ﻿using AutoMapper;
-using Domain.Dtos.Booking;
 using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using Domain.Interfaces.Services.Booking;
 using Domain.Models;
 using Service.Notifications;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Service.Services
 {
-    public class BookingService : IBookingService
+    public class BookingService : BaseCrudService<BookingModel, BookingEntity>, IBookingService
     {
-        private readonly IBookingRepository _bookingRepository;
         private readonly IClientRepository _clientRepository;
-        private readonly IMapper _mapper;
-        public BookingService(IBookingRepository bookingRepository, IMapper mapper, IClientRepository clientRepository)
+        private readonly IBookingRepository _bookingRepository;
+        public BookingService(IBookingRepository bookingRepository, IMapper mapper, IClientRepository clientRepository) : base(bookingRepository, mapper)
         {
-            _bookingRepository = bookingRepository;
-            _mapper = mapper;
             _clientRepository = clientRepository;
+            _bookingRepository = bookingRepository;
         }
-        public async Task<BookingCreateResultDto> Create(BookingCreateDto booking)
-        {
-            var model = _mapper.Map<BookingModel>(booking);
-            await ValidateModel(model);
-
-            if (!model.IsValid)
-            {
-                return _mapper.Map<BookingCreateResultDto>(model);
-            }
-
-            var inputEntity = _mapper.Map<BookingEntity>(model);
-            var outputEntity = await _bookingRepository.InsertAsync(inputEntity);
-
-            return _mapper.Map<BookingCreateResultDto>(outputEntity);
-        }
-
-        private async Task ValidateModel(BookingModel model)
+        override protected async Task ValidateModel(BookingModel model)
         {
             await ValidateClientId(model);
 
@@ -54,7 +33,8 @@ namespace Service.Services
 
         private async Task ValidateAvailability(BookingModel model)
         {
-            if (!await IsAvailable(model))
+            await CheckAvailability(model);
+            if (!model.IsAvailable)
             {
                 model.AddNotification(BookingNotifications.NotAvailable);
             }
@@ -95,54 +75,21 @@ namespace Service.Services
             }
         }
 
-        private async Task<bool> IsAvailable(BookingModel model)
+        public async Task<BookingModel> IsAvailable(BookingModel model)
         {
-            var entity = _mapper.Map<BookingEntity>(model);
-            return await _bookingRepository.IsAvailable(entity);
-        }
-
-        public async Task<bool> Delete(Guid id)
-        {
-            return await _bookingRepository.DeleteAsync(id);
-        }
-
-        public async Task<BookingUpdateResultDto> Edit(BookingUpdateDto booking)
-        {
-            var model = _mapper.Map<BookingModel>(booking);
-            await ValidateModel(model);
-
-            if (!model.IsValid)
+            ValidateStartDatePriorToEndDate(model);
+            if (model.IsValid)
             {
-                return _mapper.Map<BookingUpdateResultDto>(model);
+                await CheckAvailability(model);
             }
 
-            var inputEntity = _mapper.Map<BookingEntity>(model);
-            var outputEntity = await _bookingRepository.UpdateAsync(inputEntity);
-
-            return _mapper.Map<BookingUpdateResultDto>(outputEntity);
+            return model;
         }
 
-        public async Task<BookingSelectResultDto> GetById(Guid id)
+        private async Task CheckAvailability(BookingModel model)
         {
-            var entity = await _bookingRepository.SelectAsync(id);
-            return _mapper.Map<BookingSelectResultDto>(entity);
-        }
-
-        public async Task<IEnumerable<BookingSelectResultDto>> GetAll()
-        {
-            var entities = await _bookingRepository.SelectAsync();
-            return _mapper.Map<IEnumerable<BookingSelectResultDto>>(entities);
-        }
-
-        public async Task<BookingAvailableResultDto> IsAvailable(BookingInputDto booking)
-        {
-            var model = _mapper.Map<BookingModel>(booking);
-            ValidateStartDatePriorToEndDate(model);
-
-            var result = new BookingAvailableResultDto(await IsAvailable(model));
-            result.AddNotifications(model.Notifications);
-
-            return result;
+            var entity = _mapper.Map<BookingEntity>(model);
+            model.IsAvailable = await _bookingRepository.IsAvailable(entity);
         }
     }
 }

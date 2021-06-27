@@ -1,6 +1,7 @@
 ﻿using Application.Controllers;
 using Domain.Dtos.Booking;
 using Domain.Interfaces.Services.Booking;
+using Domain.Models;
 using Flunt.Notifications;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -17,24 +18,26 @@ namespace Application.Test.Booking
         [Fact]
         public async Task Should_Return_Ok_Result_When_Service_Is_Able_To_Check_Availability()
         {
-            _mockService.Setup(m => m.IsAvailable(BookingInputDto)).ReturnsAsync(new BookingAvailableResultDto(true));
-            var controller = new BookingsController(_mockService.Object);
+            BookingModel.IsAvailable = true;
+            _mockMapper.Setup(m => m.Map<BookingModel>(BookingIsAvailableDto)).Returns(BookingModel);
+            _mockService.Setup(m => m.IsAvailable(BookingModel)).ReturnsAsync(BookingModel);
+            var controller = new BookingsController(_mockService.Object, _mockMapper.Object);
             
-            var result = await controller.IsAvailable(BookingInputDto);
+            var result = await controller.IsAvailable(BookingIsAvailableDto);
 
             Assert.True(result is OkObjectResult);
             var resultValue = ((OkObjectResult)result).Value;
-            Assert.Equal(true, resultValue);
+            Assert.Equal(BookingModel.IsAvailable, resultValue);
         }
 
         [Fact]
         public async Task Should_Return_Bad_Request_When_ModelState_Is_Invalid()
         {
-            _mockService.Setup(m => m.IsAvailable(BookingInputDto)).ReturnsAsync(new BookingAvailableResultDto(true));
-            var controller = new BookingsController(_mockService.Object);
+            _mockService.Setup(m => m.IsAvailable(BookingModel)).ReturnsAsync(BookingModel);
+            var controller = new BookingsController(_mockService.Object, _mockMapper.Object);
             controller.ModelState.AddModelError("Id", "Id is required");
 
-            var result = await controller.IsAvailable(BookingInputDto);
+            var result = await controller.IsAvailable(BookingIsAvailableDto);
 
             Assert.True(result is BadRequestObjectResult);
         }
@@ -42,10 +45,11 @@ namespace Application.Test.Booking
         [Fact]
         public async Task Should_Return_Bad_Request_When_Service_Returns_Null()
         {
-            _mockService.Setup(m => m.IsAvailable(BookingInputDto)).ReturnsAsync((BookingAvailableResultDto)null);
-            var controller = new BookingsController(_mockService.Object);
+            _mockMapper.Setup(m => m.Map<BookingModel>(BookingIsAvailableDto)).Returns(BookingModel);
+            _mockService.Setup(m => m.IsAvailable(BookingModel)).ReturnsAsync((BookingModel)null);
+            var controller = new BookingsController(_mockService.Object, _mockMapper.Object);
 
-            var result = await controller.IsAvailable(BookingInputDto);
+            var result = await controller.IsAvailable(BookingIsAvailableDto);
 
             Assert.True(result is BadRequestResult);
         }
@@ -54,13 +58,13 @@ namespace Application.Test.Booking
         public async Task Should_Return_Bad_Request_When_Service_Returns_Invalid_Result()
         {
             var expectedNotification = new Notification("test", "test message");
-            var bookingAvailableResultDto = new BookingAvailableResultDto(true);
-            bookingAvailableResultDto.AddNotification(expectedNotification);
-            
-            _mockService.Setup(m => m.IsAvailable(BookingInputDto)).ReturnsAsync(bookingAvailableResultDto);
-            var controller = new BookingsController(_mockService.Object);
+            BookingModel.AddNotification(expectedNotification);
 
-            var result = await controller.IsAvailable(BookingInputDto);
+            _mockMapper.Setup(m => m.Map<BookingModel>(BookingIsAvailableDto)).Returns(BookingModel);
+            _mockService.Setup(m => m.IsAvailable(BookingModel)).ReturnsAsync(BookingModel);
+            var controller = new BookingsController(_mockService.Object, _mockMapper.Object);
+
+            var result = await controller.IsAvailable(BookingIsAvailableDto);
 
             Assert.True(result is BadRequestObjectResult);
             Assert.Single(((BadRequestObjectResult)result).Value as IEnumerable<Notification>);

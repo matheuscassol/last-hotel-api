@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain.Dtos
 {
-    public class ClientSelectResultDto
+    public class ClientGetResultDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

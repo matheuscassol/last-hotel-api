@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Domain.Dtos.Booking
 {
-    public class BookingAvailableResultDto: Notifiable<Notification>
+    public class BookingIsAvailableResultDto: Notifiable<Notification>
     {
-        public BookingAvailableResultDto(bool isAvalailable)
+        public BookingIsAvailableResultDto(bool isAvalailable)
         {
             IsAvailable = isAvalailable;
         }

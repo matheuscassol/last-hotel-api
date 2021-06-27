@@ -5,8 +5,14 @@ using System.Text;
 
 namespace Domain.Dtos.Booking
 {
-    public class BookingInputDto
+    public class BookingPutDto
     {
+        [Required(ErrorMessage = "Booking Id is required")]
+        public Guid? Id { get; set; }
+
+        [Required(ErrorMessage = "Client Id is required")]
+        public Guid? ClientId { get; set; }
+
         [Required(ErrorMessage = "Start Date is required")]
         public DateTime? StartDate { get; set; }
 

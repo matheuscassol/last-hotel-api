@@ -1,6 +1,8 @@
-﻿using Domain.Dtos;
+﻿using AutoMapper;
+using Domain.Dtos;
 using Domain.Entities;
 using Domain.Interfaces.Services.Client;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,84 +15,10 @@ namespace Application.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ClientsController : ControllerBase
+    public class ClientsController : BaseCrudController<ClientModel, ClientPostDto, ClientPostResultDto, ClientPutDto, ClientPutResultDto, ClientGetResultDto>
     {
-        private readonly IClientService _clientService;
-        public ClientsController(IClientService clientService)
+        public ClientsController(IClientService service, IMapper mapper) : base(service, mapper)
         {
-            _clientService = clientService;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> GetAll()
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            return Ok(await _clientService.GetAll());
-        }
-
-        [HttpGet]
-        [Route("{id}", Name = "GetById")]
-        public async Task<ActionResult> Get(Guid id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            return Ok(await _clientService.GetById(id));
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] ClientCreateDto client)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
- 
-            var result = await _clientService.Create(client);
-            if (result != null)
-            {
-                return Created(new Uri(Url.Link("GetById", new { id = result.Id })), result);
-            } else
-            {
-                return BadRequest();
-            }
-        }
-
-        [HttpPut]
-        public async Task<ActionResult> Put([FromBody] ClientUpdateDto client)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var result = await _clientService.Edit(client);
-            if (result != null)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest();
-            }
-        }
-
-        [HttpDelete]
-        [Route("{id}")]
-        public async Task<ActionResult> Delete(Guid id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            return Ok(await _clientService.Delete(id));
         }
     }
 }

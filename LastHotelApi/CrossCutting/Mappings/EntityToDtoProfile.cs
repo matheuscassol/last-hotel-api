@@ -12,12 +12,12 @@ namespace CrossCutting.Mappings
     {
         public EntityToDtoProfile()
         {
-            CreateMap<ClientEntity, ClientSelectResultDto>();
-            CreateMap<ClientEntity, ClientCreateResultDto>();
-            CreateMap<ClientEntity, ClientUpdateResultDto>();
-            CreateMap<BookingEntity, BookingSelectResultDto>();
-            CreateMap<BookingEntity, BookingCreateResultDto>();
-            CreateMap<BookingEntity, BookingUpdateResultDto>();
+            CreateMap<ClientEntity, ClientGetResultDto>();
+            CreateMap<ClientEntity, ClientPostResultDto>();
+            CreateMap<ClientEntity, ClientPutResultDto>();
+            CreateMap<BookingEntity, BookingGetResultDto>();
+            CreateMap<BookingEntity, BookingPostResultDto>();
+            CreateMap<BookingEntity, BookingPutResultDto>();
         }
     }
 }

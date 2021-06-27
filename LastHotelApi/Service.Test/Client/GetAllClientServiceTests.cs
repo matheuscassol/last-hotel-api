@@ -2,6 +2,7 @@
 using Domain.Dtos;
 using Domain.Entities;
 using Domain.Interfaces.Repositories;
+using Domain.Models;
 using Moq;
 using Service.Services;
 using System;
@@ -19,12 +20,12 @@ namespace Service.Test.Client
         public async Task Should_Get_All_Clients()
         {
             _mockRepository.Setup(m => m.SelectAsync()).ReturnsAsync(ClientEntities);
-            _mockMapper.Setup(m => m.Map<IEnumerable<ClientSelectResultDto>>(ClientEntities)).Returns(ClientSelectResultDtoList);
+            _mockMapper.Setup(m => m.Map<IEnumerable<ClientModel>>(ClientEntities)).Returns(ClientModels);
             var service = new ClientService(_mockRepository.Object, _mockMapper.Object);
             
             var result = await service.GetAll();
 
-            Assert.Equal(result, ClientSelectResultDtoList);
+            Assert.Equal(result, ClientModels);
         }
     }
 }
