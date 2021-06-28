@@ -41,7 +41,7 @@ Ex:
   "createdAt": "2021-06-27T21:57:27.8823268Z"
 }
 ```
-When using the **IsAvailable**, the user must provide a date range, and the API checks if there is a booking overlapping with that range. The only requirement is that the ***StartDate*** needs to be prior to the ***EndDate***.
+When using the **IsAvailable** feature, the user must provide a date range, and the API checks if there is a booking overlapping with that range. The only requirement is that the ***StartDate*** needs to be prior to the ***EndDate***.
 
 ## Architecture & Principles
 This project was designed with an architecture that applies **Domain Driven Design**.
