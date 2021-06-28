@@ -43,6 +43,8 @@ Ex:
 ```
 When using the **IsAvailable** feature, the user must provide a date range, and the API checks if there is a booking overlapping with that range. The only requirement is that the ***StartDate*** needs to be prior to the ***EndDate***.
 
+Please note that one of the requirements is that the stay cannot be longer than 3 days. However there is no rule stopping a client from booking multiple times in sequence.
+
 ## Architecture & Principles
 This project was designed with an architecture that applies **Domain Driven Design**.
 
