@@ -11,7 +11,7 @@ Hotel has only one room available                                             | 
 The stay can’t be longer than 3 days                                          | Validations/ Notification pattern. ***Clients can book multiple times in sequence*** 
 Reservation can't be more than 30 days in advance                             | Validations/ Notification pattern
 Reservation starts at least the next day of booking                           | Validations/ Notification pattern
-A day in the hotel room starts from 00:00:00 to 23:59:59                      | Input dates is overwritten with the correct times. See example in the **Usage** section 
+A day in the hotel room starts from 00:00:00 to 23:59:59                      | Input dates are overwritten with the correct times. See example in the **Usage** section 
 Every user can check availability, make a reservation, cancel it or modify it | ***Any user can modify any booking for simplicity***
 To simplify the API is insecure                                               | No authentication/authorization
 
