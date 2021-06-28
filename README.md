@@ -66,7 +66,9 @@ It should be relatively easy to replace the ***Application*** layer for a differ
 It should also be easy to add new Controllers, Services, and Objects as this project was coded having the **SOLID principles** and **Clean Code** in mind.
 
 ### Test Coverage
-The test coverage include all Services, Controllers and Repositories. There is no duplication of tests when it comes to Base abstract objects. *Ex: **BookingRepository** and **ClientRepository** both inherit the implementation from the **BaseRepository**. There is no reason to test the same implementation twice, so all of the **BaseRepository** methods are tested with the **ClientRepository** tests.*
+The test coverage include all Services, Controllers and Repositories. There is no duplication of tests when it comes to Base abstract classes. 
+
+*Ex: **BookingRepository** and **ClientRepository** both inherit the implementation from the **BaseRepository**. There is no reason to test the same implementation twice, so all of the **BaseRepository** methods are tested with the **ClientRepository** tests.*
 
 ## Shortcuts
 This is the list of features left out of the project for simplicity. 
