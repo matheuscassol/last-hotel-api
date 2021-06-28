@@ -6,7 +6,7 @@ This project is a REST API developed in **.NET Core 3.1** with **xUnit** unit te
 ### Running
 The project is designed to run locally just by running the ***Application*** project.
 
-*To achieve this design, the database is In Memory and some capabilities of relational databases might not work as expected. ex: Unique Indexes. However, those configurations are still present. Please note that the database is disposed when the API stops running*
+*To achieve this design, the database is **In Memory** and some capabilities of relational databases might not work as expected. ex: Unique Indexes. However, those configurations are still present. Please note that the database is disposed when the API stops running.*
 
 ### API Documentation
 The default route leads to the **Swagger** documentation, which provides the right routes and data formats for each request.
