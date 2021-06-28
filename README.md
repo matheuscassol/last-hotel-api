@@ -8,7 +8,7 @@ Requirement                                                                   | 
 API will be maintained by the IT department                                   | *Clean Code*, *SOLID*, Unit Tests
 No downtime                                                                   | This would be handled with a robust cloud architecture, with georeplication and cache 
 Hotel has only one room available                                             | Logic for rooms was not implemented
-The stay can’t be longer than 3 days                                          | Validations/ Notification pattern. *Clients can book multiple times in sequence* 
+The stay can’t be longer than 3 days                                          | Validations/ Notification pattern. ***Clients can book multiple times in sequence*** 
 Reservation can't be more than 30 days in advance                             | Validations/ Notification pattern
 Reservation starts at least the next day of booking                           | Validations/ Notification pattern
 A day in the hotel room starts from 00:00:00 to 23:59:59                      | Input dates is overritten with the correct times. See example in the **Usage** section 
