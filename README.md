@@ -6,7 +6,7 @@ This project is a REST API developed in **.NET Core 3.1** with **xUnit** unit te
 ### Running
 The project is designed to run locally just by running the ***Application*** project.
 
-*To achieve this design, the database is In Memory and some capabilities of relational databases might not work as expected. ex: Unique Indexes. However, those configurations are still present.*
+*To achieve this design, the database is In Memory and some capabilities of relational databases might not work as expected. ex: Unique Indexes. However, those configurations are still present. Please note that the database is disposed when the API stops running*
 
 ### API Documentation
 The default route leads to the **Swagger** documentation, which provides the right routes and data formats for each request.
@@ -41,6 +41,7 @@ Ex:
   "createdAt": "2021-06-27T21:57:27.8823268Z"
 }
 ```
+When using the **IsAvailable**, the user must provide a date range, and the API checks if there is a booking overlapping with that range. The only requirement is that the ***StartDate*** needs to be prior to the ***EndDate***.
 
 ## Architecture & Principles
 This project was designed with an architecture that applies **Domain Driven Design**.
