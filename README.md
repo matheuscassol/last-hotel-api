@@ -17,7 +17,7 @@ The default route leads to the **Swagger** documentation, which provides the rig
 
 ### Special Remarks
 
-Please note that, when booking, the *Start Date* and *End Date* are going be assigned to the correct time of the day, regardless of the input. 
+Please note that, when booking, the ***Start Date*** and ***End Date*** are going be assigned to the correct time of the day, regardless of the input. 
 
 Ex:
  
@@ -41,7 +41,7 @@ Ex:
   "createdAt": "2021-06-27T21:57:27.8823268Z"
 }
 ```
-When using the **IsAvailable** feature, the user must provide a date range, and the API checks if there is a booking overlapping with that range. The only requirement is that the ***StartDate*** needs to be prior to the ***EndDate***.
+When using the **IsAvailable** feature, the user must provide a date range, and the API checks if there is a booking overlapping with that range. The only requirement is that the ***Start Date*** needs to be prior to the ***End Date***.
 
 Please note that one of the requirements is that the stay cannot be longer than 3 days. However there is no rule stopping a client from booking multiple times in sequence.
 
