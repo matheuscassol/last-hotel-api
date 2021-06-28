@@ -11,8 +11,8 @@ Hotel has only one room available                                             | 
 The stay can’t be longer than 3 days                                          | Validations/ Notification pattern. ***Clients can book multiple times in sequence*** 
 Reservation can't be more than 30 days in advance                             | Validations/ Notification pattern
 Reservation starts at least the next day of booking                           | Validations/ Notification pattern
-A day in the hotel room starts from 00:00:00 to 23:59:59                      | Input dates is overritten with the correct times. See example in the **Usage** section 
-Every user can check availability, make a reservation, cancel it or modify it | Any user can modify any booking for simplicity
+A day in the hotel room starts from 00:00:00 to 23:59:59                      | Input dates is overwritten with the correct times. See example in the **Usage** section 
+Every user can check availability, make a reservation, cancel it or modify it | ***Any user can modify any booking for simplicity***
 To simplify the API is insecure                                               | No authentication/authorization
 
 ## Usage
@@ -55,8 +55,6 @@ Ex:
 }
 ```
 When using the **IsAvailable** feature, the user must provide a date range, and the API checks if there is a booking overlapping with that range. The only requirement is that the ***Start Date*** needs to be prior to the ***End Date***.
-
-Please note that one of the requirements is that the stay cannot be longer than 3 days. However there is no rule stopping a client from booking multiple times in sequence.
 
 ## Architecture & Principles
 This project was designed with an architecture that applies **Domain Driven Design**.
