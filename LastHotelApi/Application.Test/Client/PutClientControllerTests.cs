@@ -51,7 +51,7 @@ namespace Application.Test.Client
             
             var result = await controller.Put(ClientPutDto);
 
-            Assert.True(result is BadRequestResult);
+            Assert.True(result is BadRequestObjectResult);
         }
 
         [Fact]

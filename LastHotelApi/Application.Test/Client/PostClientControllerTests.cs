@@ -48,19 +48,6 @@ namespace Application.Test.Client
         }
 
         [Fact]
-        public async Task Should_Return_Bad_Request_When_Service_Returns_Null()
-        {
-            _mockService.Setup(m => m.Create(ClientModel)).ReturnsAsync((ClientModel)null);
-            
-            var controller = new ClientsController(_mockService.Object, _mockMapper.Object);
-            controller.Url = _mockUrl.Object;
-
-            var result = await controller.Post(ClientPostDto);
-
-            Assert.True(result is BadRequestResult);
-        }
-
-        [Fact]
         public async Task Should_Return_Bad_Request_When_Service_Returns_Invalid_Result()
         {
             var expectedNotification = new Notification("test", "test message");

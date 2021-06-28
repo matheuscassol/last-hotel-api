@@ -37,5 +37,16 @@ namespace Application.Test.Client
 
             Assert.True(result is BadRequestObjectResult);
         }
+
+        [Fact]
+        public async Task Should_Return_Bad_Request_When_Service_Returns_False()
+        {
+            _mockService.Setup(m => m.Delete(ClientId)).ReturnsAsync(false);
+            var controller = new ClientsController(_mockService.Object, _mockMapper.Object);
+
+            var result = await controller.Delete(ClientId);
+
+            Assert.True(result is BadRequestObjectResult);
+        }
     }
 }

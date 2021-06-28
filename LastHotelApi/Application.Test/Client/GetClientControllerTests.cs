@@ -1,6 +1,7 @@
 ﻿using Application.Controllers;
 using Domain.Dtos;
 using Domain.Interfaces.Services.Client;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
@@ -35,6 +36,17 @@ namespace Application.Test.Client
 
             var controller = new ClientsController(_mockService.Object, _mockMapper.Object);
             controller.ModelState.AddModelError("Id", "Id is required");
+
+            var result = await controller.Get(ClientId);
+
+            Assert.True(result is BadRequestObjectResult);
+        }
+        
+        [Fact]
+        public async Task Should_Return_Bad_Request_When_Service_Returns_Null()
+        {
+            _mockService.Setup(m => m.GetById(ClientId)).ReturnsAsync((ClientModel)(null));
+            var controller = new ClientsController(_mockService.Object, _mockMapper.Object);
 
             var result = await controller.Get(ClientId);
 
