@@ -22,7 +22,7 @@ namespace Service.Test.Booking
         [InlineData(1, 4, true, true, "Invalid Period")]
         [InlineData(2, 0, true, true, "Inverted Dates")]
         [InlineData(0, 1, true, true, "Invalid Date")]
-        [InlineData(31, 32, true, true, "Invalid Date")]
+        [InlineData(31, 32, true, true, "Not Available")]
         public async Task Should_Not_Insert_Booking_And_Add_Notification_When_Invalid(int daysToStartDate, int daysToEndDate, bool isAvailable, bool clientExists, string expectedNotificationKey)
         {
             _mockRepository.Setup(m => m.InsertAsync(BookingEntity)).ReturnsAsync(BookingEntity);
